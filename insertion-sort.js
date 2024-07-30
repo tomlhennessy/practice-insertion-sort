@@ -1,46 +1,60 @@
 // Insertion Sort out-of-place
 // Do not modify the original array
 function insertionSort(arr) {
-  /*
-  Pseudocode:
+  // copy the original array
+  let unsorted = arr.slice();
+  let sorted = [];
 
-  Copy the original array
-  Create an array to store the sorted values
-  While the array is not empty:
-  - make sure you have a console.log(sorted.join(',')) as your first line in the while loop
-  - Pop a value from the array
-  - Create a new spot at the end of the array with null to help with comparisons
-  - Walk through the sorted array in reverse order
-  - Check if the value to the left is smaller than the new value
-  - If so, you've reached the insertion point so exit the loop
-  - If not shift the value to the right by 1 and continue
-  - Insert the unsorted value at the break point
-  Return the sorted array
-  */
+  // while the array is not empty
+  while (unsorted.length > 0) {
+    // make sure you have a console.log(sorted.join(',')) as your first line in the while loop
+    console.log(sorted.join(','));
 
-  // Your code here
+    // pop a value from the array
+    let value = unsorted.pop();
+
+    // create a new spot at end of array with null to help with comparisons
+    sorted.push(null);
+
+    // walk through sorted array in reverse order
+    let i;
+    for (i = sorted.length - 2; i >= 0; i--) {
+      // check if the value to the left is smaller than the new value
+      if (sorted[i] <= value) {
+        break;
+      }
+
+      // if not, shift the value to the right by 1
+      sorted[i + 1] = sorted[i];
+    }
+
+    // insert the unsorted value at the break point
+    sorted[i + 1] = value;
+  }
 }
 
 // In-place Insertion Sort
 // Mutates the original array
 function insertionSortInPlace(arr) {
-  /*
-  Pseudocode:
+  // set a pointer dividing the array into sorted and unsorted halves
+  for (let i = 1; i < arr.length; i++) {
+    // make sure you have a console.log(arr.join(',')) as your first line
+    console.log(arr.join(','));
 
-  Set a pointer dividing the array into sorted and unsorted halves
-  Repeat while the unsorted half is not empty:
-  - make sure you have a console.log(sorted.join(',')) as your first line in the while loop
-  - Grab the first value from the unsorted half
-  - For each value starting from the divider,
-  - Check if the value to the left is smaller than the unsorted value
-  - If so, you've reached the insertion point so exit the loop
-  - If not shift the value to the right by 1 and continue
-  - Insert the unsorted value at the break point
-  - Increment the dividing pointer and repeat
-  Return the mutated array
-  */
+    let value = arr[i];
+    let j;
 
-  // Your code here
+    // for each value starting from the divider
+    for (j = i - 1; j >= 0 && arr[j] > value; j--) {
+      // shift the value to the right by one
+      arr[j + 1] = arr[j];
+    }
+
+    // insert the unsorted value at the break point
+    arr[j + 1] = value;
+  }
+
+  return arr;
 }
 
 module.exports = [insertionSort, insertionSortInPlace];
